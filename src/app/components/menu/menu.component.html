@@ -1,12 +1,19 @@
-<p>
+<div class="noselect">
   <mat-toolbar color="primary">
     <button mat-icon-button aria-label="Awesome app icon">
       <mat-icon>movie_filter</mat-icon>
     </button>
     <span>Film DB App</span>
     <span class="menu-spacer"></span>
-    <button mat-icon-button aria-label="Menu icon">
+    <span class="desktop-menu-item">Film list</span>
+    <span class="desktop-menu-item">My wishlist</span>
+    <button mat-icon-button aria-label="Menu icon" class="menu-icon" (click)="isMenuItemsVisible = !isMenuItemsVisible">
       <mat-icon>menu</mat-icon>
     </button>
   </mat-toolbar>
-</p>
+
+  <div *ngIf="isMenuItemsVisible" [@enterAnimation] class="mobile-menu-items">
+    <div class="mobile-menu-item">Film list</div>
+    <div class="mobile-menu-item">My wishlist</div>
+  </div>
+</div>
