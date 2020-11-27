@@ -6,7 +6,7 @@
     <span>Film DB App</span>
     <span class="menu-spacer"></span>
     <span class="desktop-menu-item">Film list</span>
-    <span class="desktop-menu-item">My wishlist</span>
+    <span class="desktop-menu-item">My watch list</span>
     <button mat-icon-button aria-label="Menu icon" class="menu-icon" (click)="isMenuItemsVisible = !isMenuItemsVisible">
       <mat-icon>menu</mat-icon>
     </button>
@@ -14,6 +14,6 @@
 
   <div *ngIf="isMenuItemsVisible" [@enterAnimation] class="mobile-menu-items">
     <div class="mobile-menu-item">Film list</div>
-    <div class="mobile-menu-item">My wishlist</div>
+    <div class="mobile-menu-item">My watch list</div>
   </div>
 </div>
