@@ -1,3 +1,4 @@
+import { SpinnerService } from './../../../services/spinner.service';
 import { ApiService } from './../../../services/api.service';
 import { Component, OnInit } from '@angular/core';
 import { FilmListItem, FilmListResult } from 'src/app/types';
@@ -12,16 +13,41 @@ export class FilmListComponent implements OnInit {
   apiKey = '9bebc10691cb106cf78fb1678221fb82';
   imageUrl = 'http://image.tmdb.org/t/p/w342/';
   filmList: FilmListItem[] = [];
+  page = 1;
+  today = new Date().toISOString().substring(0, 10);
+  loadIsInProgress = false;
 
   constructor(
-    private apiService: ApiService
+    private apiService: ApiService,
+    private spinnerService: SpinnerService
   ) { }
 
   ngOnInit(): void {
-    this.apiService.get('/discover/movie', { api_key: this.apiKey, sort_by: 'release_date.desc' })
+    this.fetchFilmList();
+  }
+
+  fetchFilmList(): void {
+    this.loadIsInProgress = true;
+    this.spinnerService.showSpinner();
+    this.apiService.get('/discover/movie',
+      {
+        api_key: this.apiKey,
+        'primary_release_date.lte': this.today,
+        page: this.page,
+        sort_by: 'primary_release_date.desc'
+      })
       .subscribe((response: FilmListResult) => {
-        this.filmList = response.results;
+        this.filmList.push(...response.results);
+        this.page++;
+        this.spinnerService.hideSpinner();
+        this.loadIsInProgress = false;
       });
+  }
+
+  onScroll(): void {
+    if (!this.loadIsInProgress) {
+      this.fetchFilmList();
+    }
   }
 
 }

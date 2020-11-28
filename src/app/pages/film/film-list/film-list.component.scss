@@ -2,6 +2,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  margin-top: 56px;
 }
 
 .mat-card {
@@ -48,5 +49,11 @@
 @media (min-width: 425px) {
   .mat-card {
     margin: 16px 16px;
+  }
 }
+
+@media (min-width: 768px) {
+  .main-container {
+    margin-top: 64px;
+  }
 }

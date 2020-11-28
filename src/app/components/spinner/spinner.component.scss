@@ -1,0 +1,11 @@
+.mat-progress-bar {
+  position: fixed;
+  top: 56px;
+  z-index: 100;
+}
+
+@media (min-width: 768px) {
+  .mat-progress-bar {
+    top: 64px;
+  }
+}

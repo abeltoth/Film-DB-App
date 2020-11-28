@@ -1,4 +1,8 @@
-<div class="main-container">
+<div class="main-container"
+  infiniteScroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="50"
+  (scrolled)="onScroll()">
   <div *ngFor="let film of filmList">
     <mat-card>
       <img mat-card-image [src]="film.poster_path ? (imageUrl + film.poster_path) : ('./../../../../assets/movie-poster-coming-soon.png')" alt="Film poster">
@@ -12,7 +16,7 @@
       </mat-card-header>
       <mat-card-content>
         <p>
-          {{ film.release_date |date }}
+          {{ film.release_date | date }}
         </p>
       </mat-card-content>
     </mat-card>

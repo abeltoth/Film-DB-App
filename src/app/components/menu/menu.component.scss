@@ -1,9 +1,11 @@
 @import "../../../variables";
 
 .mat-toolbar {
-  position: relative;
+  position: fixed;
+  top: 0;
   box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.15);
   z-index: 10;
+  height: 56px;
 }
 
 .menu-spacer {
@@ -19,7 +21,8 @@
 }
 
 .mobile-menu-items {
-  position: absolute;
+  position: fixed;
+  top: 56px;
   left: 0;
   right: 0;
   display: flex;
@@ -55,5 +58,9 @@
   .desktop-menu-item {
     display: inline-block;
   }
+
+  .mat-toolbar {
+    height: 64px;
+}
 
 }

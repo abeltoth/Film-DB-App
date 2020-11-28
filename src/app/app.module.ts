@@ -12,12 +12,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
-    ShellComponent
+    ShellComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -28,6 +31,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
+    MatProgressBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
