@@ -6,11 +6,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MenuComponent } from './components/menu/menu.component';
+import { ShellComponent } from './components/shell/shell.component';
+import { HttpClientModule } from '@angular/common/http';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { ShellComponent } from './components/shell/shell.component';
 
 @NgModule({
   declarations: [
@@ -20,12 +21,13 @@ import { ShellComponent } from './components/shell/shell.component';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     RouterModule,
     BrowserAnimationsModule,
     MatToolbarModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,19 +1,19 @@
 <div class="noselect">
   <mat-toolbar color="primary">
-    <button mat-icon-button aria-label="Awesome app icon">
+    <button mat-icon-button aria-label="Awesome app icon" [routerLink]="['/films']">
       <mat-icon>movie_filter</mat-icon>
     </button>
     <span>Film DB App</span>
     <span class="menu-spacer"></span>
-    <span class="desktop-menu-item">Film list</span>
-    <span class="desktop-menu-item">My watch list</span>
+    <span class="desktop-menu-item" [routerLink]="['/films']">Film list</span>
+    <span class="desktop-menu-item" [routerLink]="['/watch-list']">My watch list</span>
     <button mat-icon-button aria-label="Menu icon" class="menu-icon" (click)="isMenuItemsVisible = !isMenuItemsVisible">
       <mat-icon>menu</mat-icon>
     </button>
   </mat-toolbar>
 
   <div *ngIf="isMenuItemsVisible" [@enterAnimation] class="mobile-menu-items">
-    <div class="mobile-menu-item">Film list</div>
-    <div class="mobile-menu-item">My watch list</div>
+    <div class="mobile-menu-item" [routerLink]="['/films']" (click)="isMenuItemsVisible = false">Film list</div>
+    <div class="mobile-menu-item" [routerLink]="['/watch-list']" (click)="isMenuItemsVisible = false">My watch list</div>
   </div>
 </div>
