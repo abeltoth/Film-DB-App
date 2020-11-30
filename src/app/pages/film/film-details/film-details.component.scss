@@ -30,13 +30,16 @@
   max-height: 420px;
 }
 
+.mat-card-image.main {
+  margin: initial;
+}
+
 .mat-card-image.actor {
   max-height: 280px;
 }
 
 .mat-card-title {
   margin-top: 12px;
-  max-width: 256px;
   line-height: 28px;
   white-space: nowrap;
   overflow: hidden;
@@ -122,5 +125,6 @@
 
   .main-body-content {
     padding: 1vw;
+    margin: 0 auto;
   }
 }

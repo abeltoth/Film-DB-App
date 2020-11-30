@@ -2,6 +2,7 @@ import { SpinnerService } from './../../../services/spinner.service';
 import { ApiService } from './../../../services/api.service';
 import { Component, OnInit } from '@angular/core';
 import { FilmListItem, FilmListResult } from 'src/app/types';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-film-list',
@@ -18,6 +19,7 @@ export class FilmListComponent implements OnInit {
   loadIsInProgress = false;
 
   constructor(
+    private router: Router,
     private apiService: ApiService,
     private spinnerService: SpinnerService
   ) { }
@@ -48,6 +50,11 @@ export class FilmListComponent implements OnInit {
     if (!this.loadIsInProgress) {
       this.fetchFilmList();
     }
+  }
+
+  navigateToDetailsPage(selectedFilm: FilmListItem): void {
+    const id = selectedFilm.id;
+    this.router.navigate([`/films/${id}`]);
   }
 
 }

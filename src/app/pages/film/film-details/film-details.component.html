@@ -45,7 +45,7 @@
           </mat-card-content>
         </mat-card>
       </div>
-      <button mat-mini-fab color="primary" class="actors-expand-button" aria-label="Expand actor button"
+      <button *ngIf="details.credits.cast.length" mat-mini-fab color="primary" class="actors-expand-button" aria-label="Expand actor button"
         (click)="toggleActors()">
         <mat-icon class="actors-expand-icon">code</mat-icon>
       </button>
@@ -70,7 +70,7 @@
               {{ review.content }}
             </p>
           </mat-card-content>
-          <button mat-mini-fab color="primary" class="review-expand-button" aria-label="Expand review button" (click)="toggleReview(i)">
+          <button *ngIf="details.reviews.results.length" mat-mini-fab color="primary" class="review-expand-button" aria-label="Expand review button" (click)="toggleReview(i)">
             <mat-icon class="review-expand-icon">code</mat-icon>
           </button>
         </mat-card>

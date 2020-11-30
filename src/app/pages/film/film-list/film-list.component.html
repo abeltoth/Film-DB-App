@@ -4,7 +4,7 @@
   [infiniteScrollThrottle]="50"
   (scrolled)="onScroll()">
   <div *ngFor="let film of filmList">
-    <mat-card>
+    <mat-card (click)="navigateToDetailsPage(film)">
       <img mat-card-image [src]="film.poster_path ? (imageUrl + film.poster_path) : ('./../../../../assets/movie-poster-coming-soon.png')" alt="Film poster">
       <mat-card-header>
         <mat-card-title
