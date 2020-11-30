@@ -1,1 +1,80 @@
-<p>film-details works!</p>
+<div *ngIf="details">
+  <mat-card>
+    <div class="main-body">
+      <img mat-card-image [src]="details.poster_path ?
+            (imageUrl + (details.poster_path)) :
+            ('./../../../../assets/movie-poster-coming-soon.png')" class="main" alt="Film poster">
+      <div class="main-body-content">
+        <mat-card-header>
+          <mat-card-title [matTooltip]="details.title" matTooltipClass="tooltip" [matTooltipShowDelay]="1000">
+            {{ details.title }}
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>
+            {{ details.release_date | date }}
+          </p>
+          <p>
+            {{ details.overview }}
+          </p>
+          <p>
+            Popularity score:
+            {{ details.popularity }}
+          </p>
+        </mat-card-content>
+      </div>
+    </div>
+    <br>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+      <mat-card-title class="cast-title">The Cast</mat-card-title>
+      <div class="actor-container" #actorContainer>
+        <mat-card *ngFor="let actor of details.credits.cast" class="actor">
+          <mat-card-header>
+            <mat-card-title
+              [matTooltip]="actor.name"
+              matTooltipClass="tooltip"
+              [matTooltipShowDelay]="1000">{{ actor.name }}</mat-card-title>
+            <mat-card-subtitle>{{ actor.character }}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <img mat-card-image
+              [src]="actor.profile_path ? (imageUrl + actor.profile_path) : ('./../../../../assets/no-profile-photo.png')"
+              class="actor"
+              alt="Actor picture">
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <button mat-mini-fab color="primary" class="actors-expand-button" aria-label="Expand actor button"
+        (click)="toggleActors()">
+        <mat-icon class="actors-expand-icon">code</mat-icon>
+      </button>
+      <br>
+      <mat-divider></mat-divider>
+      <mat-card-title class="review-title">Reviews</mat-card-title>
+      <div *ngFor="let review of details.reviews.results; let i = index">
+        <mat-card class="review">
+          <mat-card-header class="review">
+            <div mat-card-avatar
+              class="review-header-image"
+              [style.background-image]="
+                review.author_details.avatar_path ?
+                ('url(' + review.author_details.avatar_path.slice(1) + ')') :
+                ('url(./../../../../assets/no-profile-photo.png)')">
+            </div>
+            <mat-card-title>{{ review.author_details.username }}</mat-card-title>
+            <mat-card-subtitle>{{ review.created_at | date }}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content class="review" #reviewContainer>
+            <p class="review-text">
+              {{ review.content }}
+            </p>
+          </mat-card-content>
+          <button mat-mini-fab color="primary" class="review-expand-button" aria-label="Expand review button" (click)="toggleReview(i)">
+            <mat-icon class="review-expand-icon">code</mat-icon>
+          </button>
+        </mat-card>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

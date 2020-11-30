@@ -2,7 +2,6 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin-top: 56px;
 }
 
 .mat-card {
@@ -14,7 +13,6 @@
 
 .mat-card-image {
   width: 100%;
-  height: 100%;
   object-fit: cover;
   margin: auto;
   border-radius: 5px;
@@ -52,8 +50,3 @@
   }
 }
 
-@media (min-width: 768px) {
-  .main-container {
-    margin-top: 64px;
-  }
-}

@@ -1,0 +1,126 @@
+@import "../../../../variables";
+
+.mat-card {
+  padding: 32px 16px 0;
+  margin: 16px;
+  max-width: 1024px;
+  margin: auto;
+  cursor: pointer;
+}
+
+.mat-card.actor {
+  max-width: 240px;
+  margin: 8px;
+  padding: 0 16px 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.mat-card.review {
+  padding: 0 16px 16px;
+  margin: 16px 0;
+}
+
+.mat-card-image {
+  width: 100%;
+  object-fit: cover;
+  margin: auto;
+  border-radius: 5px;
+  max-height: 420px;
+}
+
+.mat-card-image.actor {
+  max-height: 280px;
+}
+
+.mat-card-title {
+  margin-top: 12px;
+  max-width: 256px;
+  line-height: 28px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+::ng-deep.tooltip {
+  font-size: 14px;
+}
+
+::ng-deep.mat-card-header-text {
+  display: grid;
+  text-align: center;
+  margin: auto !important;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.review ::ng-deep.mat-card-header-text {
+  margin: initial !important;
+}
+
+.mat-card-content {
+  text-align: center;
+}
+
+.mat-card-content.review {
+  max-height: 100px;
+  overflow: hidden;
+  margin-bottom: 0;
+}
+
+.actor-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  overflow: hidden;
+  max-height: 295px;
+}
+
+.review-header-image {
+  background-size: cover;
+  position: relative;
+  top: 18px;
+  margin-right: 10px;
+}
+
+.review-text {
+  text-align: start;
+}
+
+.cast-title,
+.review-title {
+  margin: 20px auto !important;
+}
+
+.review-expand-button {
+  position: relative;
+  top: 8px;
+}
+
+.actors-expand-icon,
+.review-expand-icon {
+  transform: rotate(90deg);
+}
+
+@media (min-width: 768px) {
+  .mat-card-image.main {
+    width: 33%;
+  }
+
+  .mat-card.actor {
+    max-width: 120px;
+  }
+
+  .mat-card-image.actor {
+    max-height: 180px;
+  }
+
+  .main-body {
+    display: flex;
+  }
+
+  .main-body-content {
+    padding: 1vw;
+  }
+}
