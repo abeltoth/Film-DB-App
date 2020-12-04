@@ -1,17 +1,21 @@
-<div class="main-container"
+<div
+  class="main-container"
   infiniteScroll
   [infiniteScrollDistance]="2"
   [infiniteScrollThrottle]="50"
   (scrolled)="onScroll()">
   <div *ngFor="let film of filmList">
     <mat-card (click)="navigateToDetailsPage(film)">
-      <img mat-card-image [src]="film.poster_path ? (imageUrl + film.poster_path) : ('./../../../../assets/movie-poster-coming-soon.png')" alt="Film poster">
+      <img
+        mat-card-image
+        [src]="film.poster_path ? (imageUrl + film.poster_path) : ('/assets/movie-poster-coming-soon.png')"
+        alt="Film poster">
       <mat-card-header>
         <mat-card-title
           [matTooltip]="film.title"
           matTooltipClass="title-tooltip"
           [matTooltipShowDelay]="1000">
-            {{ film.title }}
+          {{ film.title }}
         </mat-card-title>
       </mat-card-header>
       <mat-card-content class="release-date">
@@ -19,8 +23,20 @@
           {{ film.release_date | date }}
         </p>
       </mat-card-content>
-      <button *ngIf="!watchListIds.includes(film.id)" mat-stroked-button class="add-to-watchlist-button" (click)="$event.stopPropagation(); addToWatchlist(film)">Add to watchlist</button>
-      <button *ngIf="watchListIds.includes(film.id)" mat-stroked-button class="remove-from-watchlist-button" (click)="$event.stopPropagation(); removeFromWatchlist(film)">Remove from watchlist</button>
+      <button
+        *ngIf="!watchListIds.includes(film.id)"
+        mat-stroked-button
+        class="add-to-watch-list-button"
+        (click)="$event.stopPropagation(); addToWatchList(film)">
+        Add to watch list
+      </button>
+      <button
+        *ngIf="watchListIds.includes(film.id)"
+        mat-stroked-button
+        class="remove-from-watch-list-button"
+        (click)="$event.stopPropagation(); removeFromWatchList(film)">
+        Remove from watch list
+      </button>
     </mat-card>
   </div>
 </div>

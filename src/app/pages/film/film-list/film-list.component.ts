@@ -1,8 +1,9 @@
-import { SpinnerService } from './../../../services/spinner.service';
-import { ApiService } from './../../../services/api.service';
-import { Component, OnInit } from '@angular/core';
-import { FilmListItem, FilmListResult } from 'src/app/types';
+import { SubSink } from 'subsink';
 import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ApiService } from 'src/app/services/api.service';
+import { FilmListItem, FilmListResult } from 'src/app/types';
+import { SpinnerService } from 'src/app/services/spinner.service';
 
 @Component({
   selector: 'app-film-list',
@@ -11,13 +12,13 @@ import { Router } from '@angular/router';
 })
 export class FilmListComponent implements OnInit {
 
-  apiKey = '9bebc10691cb106cf78fb1678221fb82';
-  imageUrl = 'http://image.tmdb.org/t/p/w342/';
-  filmList: FilmListItem[] = [];
   page = 1;
-  today = new Date().toISOString().substring(0, 10);
+  subs = new SubSink();
   loadIsInProgress = false;
   watchListIds: number[] = [];
+  filmList: FilmListItem[] = [];
+  imageUrl = 'http://image.tmdb.org/t/p/w342/';
+  today = new Date().toISOString().substring(0, 10);
 
   constructor(
     private router: Router,
@@ -33,19 +34,20 @@ export class FilmListComponent implements OnInit {
   fetchFilmList(): void {
     this.loadIsInProgress = true;
     this.spinnerService.showSpinner();
-    this.apiService.get('/discover/movie',
-      {
-        api_key: this.apiKey,
-        'primary_release_date.lte': this.today,
-        page: this.page,
-        sort_by: 'primary_release_date.desc'
-      })
-      .subscribe((response: FilmListResult) => {
-        this.filmList.push(...response.results);
-        this.page++;
-        this.spinnerService.hideSpinner();
-        this.loadIsInProgress = false;
-      });
+    this.subs.add(
+      this.apiService.get('/discover/movie',
+        {
+          'primary_release_date.lte': this.today,
+          page: this.page,
+          sort_by: 'primary_release_date.desc'
+        })
+        .subscribe((response: FilmListResult) => {
+          this.filmList.push(...response.results);
+          this.page++;
+          this.spinnerService.hideSpinner();
+          this.loadIsInProgress = false;
+        })
+    );
   }
 
   onScroll(): void {
@@ -60,21 +62,21 @@ export class FilmListComponent implements OnInit {
   }
 
   getWatchListIds(): number[] {
-    return JSON.parse(localStorage.getItem('watchlist_ids') || '[]');
+    return JSON.parse(localStorage.getItem('watch_list_ids') || '[]');
   }
 
-  addToWatchlist(selectedFilm: FilmListItem): void {
+  addToWatchList(selectedFilm: FilmListItem): void {
     const storedIds: number[] = this.getWatchListIds();
     storedIds.push(selectedFilm.id);
-    localStorage.setItem('watchlist_ids', JSON.stringify(storedIds));
-    this.ngOnInit();
+    localStorage.setItem('watch_list_ids', JSON.stringify(storedIds));
+    this.watchListIds = this.getWatchListIds();
   }
 
-  removeFromWatchlist(selectedFilm: FilmListItem): void {
+  removeFromWatchList(selectedFilm: FilmListItem): void {
     let storedIds: number[] = this.getWatchListIds();
     storedIds = storedIds.filter(id => id !== selectedFilm.id);
-    localStorage.setItem('watchlist_ids', JSON.stringify(storedIds));
-    this.ngOnInit();
+    localStorage.setItem('watch_list_ids', JSON.stringify(storedIds));
+    this.watchListIds = this.getWatchListIds();
   }
 
 }

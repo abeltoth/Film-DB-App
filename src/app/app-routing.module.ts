@@ -1,6 +1,6 @@
-import { ShellComponent } from './components/shell/shell.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { ShellComponent } from './components/shell/shell.component';
 
 const routes: Routes = [
   {

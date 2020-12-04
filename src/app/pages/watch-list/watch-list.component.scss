@@ -1,4 +1,4 @@
-@import "../../../variables";
+@import "~src/variables";
 
 .main-container {
   display: flex;
@@ -50,7 +50,7 @@
   margin-bottom: 26px;
 }
 
-.remove-from-watchlist-button {
+.remove-from-watch-list-button {
   position: absolute;
   left: 72px;
   bottom: 12px;

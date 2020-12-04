@@ -1,8 +1,9 @@
 <div class="main-container">
   <div *ngFor="let film of watchListData">
     <mat-card (click)="navigateToDetailsPage(film)">
-      <img mat-card-image
-        [src]="film.poster_path ? (imageUrl + film.poster_path) : ('./../../../../assets/movie-poster-coming-soon.png')"
+      <img
+        mat-card-image
+        [src]="film.poster_path ? (imageUrl + film.poster_path) : ('/assets/movie-poster-coming-soon.png')"
         alt="Film poster">
       <mat-card-header>
         <mat-card-title [matTooltip]="film.title" matTooltipClass="title-tooltip" [matTooltipShowDelay]="1000">
@@ -14,7 +15,12 @@
           {{ film.release_date | date }}
         </p>
       </mat-card-content>
-      <button mat-stroked-button class="remove-from-watchlist-button" (click)="$event.stopPropagation(); removeFromWatchlist(film)">Remove from watchlist</button>
+      <button
+        mat-stroked-button
+        class="remove-from-watch-list-button"
+        (click)="$event.stopPropagation(); removeFromWatchList(film)">
+        Remove from watch list
+      </button>
     </mat-card>
   </div>
 </div>

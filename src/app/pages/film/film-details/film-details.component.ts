@@ -1,8 +1,9 @@
-import { FilmDetails } from './../../../types';
-import { Component, OnInit, QueryList, ViewChildren, ElementRef, ViewChild } from '@angular/core';
+import { SubSink } from 'subsink';
+import { FilmDetails } from 'src/app/types';
+import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { SpinnerService } from 'src/app/services/spinner.service';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, QueryList, ViewChildren, ElementRef, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-film-details',
@@ -14,9 +15,9 @@ export class FilmDetailsComponent implements OnInit {
   @ViewChild('actorContainer') actorContainer: ElementRef;
   @ViewChildren('reviewContainer') reviewContainers: QueryList<ElementRef>;
 
-  apiKey = '9bebc10691cb106cf78fb1678221fb82';
-  imageUrl = 'http://image.tmdb.org/t/p/original/';
+  subs = new SubSink();
   details: FilmDetails;
+  imageUrl = 'http://image.tmdb.org/t/p/original/';
 
   constructor(
     private apiService: ApiService,
@@ -28,15 +29,16 @@ export class FilmDetailsComponent implements OnInit {
     this.spinnerService.showSpinner();
 
     const id = this.activatedRoute.snapshot.paramMap.get('id');
-    this.apiService.get(`/movie/${id}`,
-      {
-        api_key: this.apiKey,
-        append_to_response: 'reviews,credits'
-      })
-      .subscribe((response: FilmDetails) => {
-        this.details = response;
-        this.spinnerService.hideSpinner();
-      });
+    this.subs.add(
+      this.apiService.get(`/movie/${id}`,
+        {
+          append_to_response: 'reviews,credits'
+        })
+        .subscribe((response: FilmDetails) => {
+          this.details = response;
+          this.spinnerService.hideSpinner();
+        })
+    );
   }
 
   toggleActors(): void {

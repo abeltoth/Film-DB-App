@@ -1,8 +1,9 @@
+import { SubSink } from 'subsink';
+import { Router } from '@angular/router';
 import { FilmListItem } from 'src/app/types';
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { SpinnerService } from 'src/app/services/spinner.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-watch-list',
@@ -11,11 +12,12 @@ import { Router } from '@angular/router';
 })
 export class WatchListComponent implements OnInit {
 
-  apiKey = '9bebc10691cb106cf78fb1678221fb82';
-  imageUrl = 'http://image.tmdb.org/t/p/w342/';
-  watchListData: FilmListItem[] = [];
   page = 1;
+  subs = new SubSink();
   loadIsInProgress = false;
+  watchListIds: number[] = [];
+  watchListData: FilmListItem[] = [];
+  imageUrl = 'http://image.tmdb.org/t/p/w342/';
 
   constructor(
     private router: Router,
@@ -24,28 +26,32 @@ export class WatchListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const watchlistIds = this.getWatchlistIds();
-    this.fetchWatchlist(watchlistIds);
+    this.watchListIds = this.getWatchListIds();
+    this.fetchWatchList(this.watchListIds);
   }
 
-  getWatchlistIds(): number[] {
-    const storedIds: number[] = JSON.parse(localStorage.getItem('watchlist_ids') || '[]');
+  getWatchListIds(): number[] {
+    const storedIds: number[] = JSON.parse(localStorage.getItem('watch_list_ids') || '[]');
     return storedIds;
   }
 
-  fetchWatchlist(watchlistIds: number[]): void {
+  fetchWatchList(watchListIds: number[]): void {
     this.loadIsInProgress = true;
+    this.spinnerService.showSpinner();
     this.watchListData = [];
-    watchlistIds.forEach((id) => {
-      this.apiService.get(`/movie/${id}`,
-        {
-          api_key: this.apiKey
-        })
-        .subscribe((response: FilmListItem) => {
-          this.watchListData.push(response);
-        });
+
+    watchListIds.forEach((id, index) => {
+      this.subs.add(
+        this.apiService.get(`/movie/${id}`)
+          .subscribe((response: FilmListItem) => {
+            this.watchListData.push(response);
+            if (index === watchListIds.length - 1) {
+              this.spinnerService.hideSpinner();
+              this.loadIsInProgress = false;
+            }
+          })
+      );
     });
-    this.loadIsInProgress = false;
   }
 
   navigateToDetailsPage(selectedFilm: FilmListItem): void {
@@ -53,10 +59,10 @@ export class WatchListComponent implements OnInit {
     this.router.navigate([`/films/${id}`]);
   }
 
-  removeFromWatchlist(selectedFilm: FilmListItem): void {
-    let storedIds: number[] = this.getWatchlistIds();
+  removeFromWatchList(selectedFilm: FilmListItem): void {
+    let storedIds: number[] = this.getWatchListIds();
     storedIds = storedIds.filter(id => id !== selectedFilm.id);
-    localStorage.setItem('watchlist_ids', JSON.stringify(storedIds));
+    localStorage.setItem('watch_list_ids', JSON.stringify(storedIds));
     this.ngOnInit();
   }
 
