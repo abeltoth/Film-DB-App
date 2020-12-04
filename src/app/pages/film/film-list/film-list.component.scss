@@ -1,3 +1,5 @@
+@import "../../../../variables";
+
 .main-container {
   display: flex;
   flex-wrap: wrap;
@@ -42,6 +44,22 @@
 
 .mat-card-content {
   text-align: center;
+}
+
+.mat-card-content.release-date {
+  margin-bottom: 26px;
+}
+
+.add-to-watchlist-button {
+  position: absolute;
+  left: 94px;
+  bottom: 12px;
+}
+
+.remove-from-watchlist-button {
+  position: absolute;
+  left: 72px;
+  bottom: 12px;
 }
 
 @media (min-width: 425px) {

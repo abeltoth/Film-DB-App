@@ -17,6 +17,7 @@ export class FilmListComponent implements OnInit {
   page = 1;
   today = new Date().toISOString().substring(0, 10);
   loadIsInProgress = false;
+  watchListIds: number[] = [];
 
   constructor(
     private router: Router,
@@ -26,6 +27,7 @@ export class FilmListComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchFilmList();
+    this.watchListIds = this.getWatchListIds();
   }
 
   fetchFilmList(): void {
@@ -55,6 +57,24 @@ export class FilmListComponent implements OnInit {
   navigateToDetailsPage(selectedFilm: FilmListItem): void {
     const id = selectedFilm.id;
     this.router.navigate([`/films/${id}`]);
+  }
+
+  getWatchListIds(): number[] {
+    return JSON.parse(localStorage.getItem('watchlist_ids') || '[]');
+  }
+
+  addToWatchlist(selectedFilm: FilmListItem): void {
+    const storedIds: number[] = this.getWatchListIds();
+    storedIds.push(selectedFilm.id);
+    localStorage.setItem('watchlist_ids', JSON.stringify(storedIds));
+    this.ngOnInit();
+  }
+
+  removeFromWatchlist(selectedFilm: FilmListItem): void {
+    let storedIds: number[] = this.getWatchListIds();
+    storedIds = storedIds.filter(id => id !== selectedFilm.id);
+    localStorage.setItem('watchlist_ids', JSON.stringify(storedIds));
+    this.ngOnInit();
   }
 
 }

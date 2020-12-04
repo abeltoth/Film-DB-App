@@ -1,0 +1,63 @@
+@import "../../../variables";
+
+.main-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.mat-card {
+  padding: 32px;
+  margin: 16px 0;
+  max-width: 320px;
+  cursor: pointer;
+}
+
+.mat-card-image {
+  width: 100%;
+  object-fit: cover;
+  margin: auto;
+  border-radius: 5px;
+  height: 420px;
+  max-width: 256px;
+}
+
+.mat-card-title {
+  margin-top: 12px;
+  max-width: 256px;
+  line-height: 28px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+::ng-deep.title-tooltip {
+  font-size: 14px;
+}
+
+::ng-deep.mat-card-header-text {
+  margin: auto !important;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.mat-card-content {
+  text-align: center;
+}
+
+.mat-card-content.release-date {
+  margin-bottom: 26px;
+}
+
+.remove-from-watchlist-button {
+  position: absolute;
+  left: 72px;
+  bottom: 12px;
+}
+
+@media (min-width: 425px) {
+  .mat-card {
+    margin: 16px 16px;
+  }
+}

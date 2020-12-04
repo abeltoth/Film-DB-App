@@ -14,11 +14,13 @@
             {{ film.title }}
         </mat-card-title>
       </mat-card-header>
-      <mat-card-content>
+      <mat-card-content class="release-date">
         <p>
           {{ film.release_date | date }}
         </p>
       </mat-card-content>
+      <button *ngIf="!watchListIds.includes(film.id)" mat-stroked-button class="add-to-watchlist-button" (click)="$event.stopPropagation(); addToWatchlist(film)">Add to watchlist</button>
+      <button *ngIf="watchListIds.includes(film.id)" mat-stroked-button class="remove-from-watchlist-button" (click)="$event.stopPropagation(); removeFromWatchlist(film)">Remove from watchlist</button>
     </mat-card>
   </div>
 </div>
