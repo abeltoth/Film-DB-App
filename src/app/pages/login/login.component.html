@@ -1,0 +1,24 @@
+<div class="logo-container">
+  <img src="/assets/logo.svg" alt="logo" class="logo">
+</div>
+<mat-card class="login-card">
+  <div class="form-container">
+    <mat-form-field appearance="standard" class="email-input">
+      <mat-label>Enter your email</mat-label>
+      <input matInput placeholder="pat@example.com" [formControl]="email">
+      <ng-content></ng-content>
+      <mat-error *ngIf="email.invalid">{{getEmailErrorMessage()}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="standard" class="password-input">
+      <mat-label>Enter your password</mat-label>
+      <input matInput [type]="hidePassword ? 'password' : 'text'" [formControl]="password">
+      <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hidePassword">
+        <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="onSubmit()">Login</button>
+  </div>
+</mat-card>

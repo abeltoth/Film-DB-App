@@ -36,6 +36,11 @@ export class WatchListComponent implements OnInit {
   }
 
   fetchWatchList(watchListIds: number[]): void {
+    if (watchListIds.length === 0) {
+      this.watchListData = [];
+      return;
+    }
+
     this.loadIsInProgress = true;
     this.spinnerService.showSpinner();
     this.watchListData = [];

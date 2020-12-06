@@ -7,6 +7,7 @@
     <span class="menu-spacer"></span>
     <span class="desktop-menu-item" [routerLink]="['/films']">Film list</span>
     <span class="desktop-menu-item" [routerLink]="['/watch-list']">My watch list</span>
+    <span class="desktop-menu-item" (click)="logOut()">Log out</span>
     <button mat-icon-button aria-label="Menu icon" class="menu-icon" (click)="isMenuItemsVisible = !isMenuItemsVisible">
       <mat-icon>menu</mat-icon>
     </button>
@@ -15,6 +16,7 @@
   <div *ngIf="isMenuItemsVisible" [@enterAnimation] class="mobile-menu-items">
     <div class="mobile-menu-item" [routerLink]="['/films']" (click)="isMenuItemsVisible = false">Film list</div>
     <div class="mobile-menu-item" [routerLink]="['/watch-list']" (click)="isMenuItemsVisible = false">My watch list</div>
+    <div class="mobile-menu-item" (click)="isMenuItemsVisible = false; logOut()">Log out</div>
   </div>
   <div class="placeholder"></div>
 </div>

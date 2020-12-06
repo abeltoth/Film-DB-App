@@ -1,5 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { AuthenticationService } from './../../services/authentication.service';
 
 @Component({
   selector: 'app-menu',
@@ -24,9 +25,15 @@ export class MenuComponent implements OnInit {
 
   isMenuItemsVisible = false;
 
-  constructor() { }
+  constructor(
+    private authenticationService: AuthenticationService
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  logOut(): void {
+    this.authenticationService.logout();
   }
 
   @HostListener('window:resize', ['$event'])

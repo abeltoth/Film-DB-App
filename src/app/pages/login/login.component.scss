@@ -1,0 +1,28 @@
+@import "~src/variables";
+
+.logo-container {
+  margin: 0 auto 20px;
+  padding-top: 20px;
+  max-width: 480px;
+  text-align: center;
+}
+
+.logo {
+  height: 170px;
+}
+
+.login-card {
+  margin: 0 auto;
+  padding: 30px;
+  max-width: 480px;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.email-input,
+.password-input {
+  margin-bottom: 10px;
+}

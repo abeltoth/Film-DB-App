@@ -41,3 +41,9 @@ export interface Cast {
   character: string;
   order: number;
 }
+
+export interface User {
+  email: string;
+  userName: string;
+  password: string; // Just for faking auth
+}
